@@ -25,9 +25,9 @@
 	</properties>
 	
 	<scm>
-		<connection>scm:git:git://github.com/nature/{github.repo.name}.git</connection>
-		<developerConnection>scm:git:git@github.com:nature/{github.repo.name}.git</developerConnection>
-		<url>https://github.com/nature/{github.repo.name}</url>
+		<connection>scm:git:git://github.com/nature/${github.repo.name}.git</connection>
+		<developerConnection>scm:git:git@github.com:nature/${github.repo.name}.git</developerConnection>
+		<url>https://github.com/nature/${github.repo.name}</url>
 	</scm>
 	
 	<distributionManagement>
@@ -48,7 +48,7 @@
 
 	<ciManagement>
 		<system>Hudson</system>
-		<url>http://ci.nature.com/hudson/job/${cisrv.view.name}</url>
+		<url>http://ci.nature.com/hudson/view/${cisrv.view.name}</url>
 		<notifiers>
 			<notifier>
 				<type>mail</type>
