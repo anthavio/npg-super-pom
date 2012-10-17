@@ -17,12 +17,17 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.java.target>1.6</project.build.java.target>
 		<aspectj.version>1.6.12</aspectj.version>
+		
+		<github.repo.name>${project.name}</github.repo.name>
+		<sites.context.name>${project.name}</sites.context.name>
+		<cisrv.view.name>${project.name}</cisrv.view.name>
+		<issues.context.name>${project.name}</issues.context.name>
 	</properties>
 	
 	<scm>
-		<connection>scm:git:git://github.com/anthavio/npg-super-pom.git</connection>
-		<developerConnection>scm:git:git@github.com:anthavio/npg-super-pom.git</developerConnection>
-		<url>https://github.com/anthavio/npg-super-pom</url>
+		<connection>scm:git:git://github.com/nature/{github.repo.name}.git</connection>
+		<developerConnection>scm:git:git@github.com:nature/{github.repo.name}.git</developerConnection>
+		<url>https://github.com/nature/{github.repo.name}</url>
 	</scm>
 	
 	<distributionManagement>
@@ -37,14 +42,13 @@
 		<downloadUrl>http://build.nature.com/artifactory/content/groups/repo</downloadUrl>
 		<site>
 			<id>npg-maven-site</id>
-			<url>scp://build.nature.com/var/www/maven.projects.nature.com/npg-super-pom</url>
+			<url>scp://build.nature.com/var/www/maven.projects.nature.com/${sites.context.name}</url>
 		</site>
-		
 	</distributionManagement>
 
 	<ciManagement>
 		<system>Hudson</system>
-		<url>http://ci.nature.com/hudson/job/npg-super-pom</url>
+		<url>http://ci.nature.com/hudson/job/${cisrv.view.name}</url>
 		<notifiers>
 			<notifier>
 				<type>mail</type>
@@ -54,8 +58,8 @@
 	</ciManagement>
 	
 	<issueManagement>
-		<system>GitHub</system>
-		<url>${project.scm.url}/issues</url>
+		<system>Jira</system>
+		<url>http://powerplant.nature.com/jira/browse/${issues.context.name}</url>
 	</issueManagement>
 	
 	<organization>
@@ -1035,7 +1039,7 @@
 								<xmlPath>${basedir}/src/changes.xml</xmlPath>
 							</configuration>
 						</plugin>
-
+						<!--
 						<plugin>
 							<groupId>de.smartics.maven.plugin</groupId>
 							<artifactId>maven-buildmetadata-plugin</artifactId>
@@ -1043,6 +1047,7 @@
 								<report>buildmetadata-report</report>
 							</reports>
 						</plugin>
+						-->
 						<!--
 						<plugin>
 							<groupId>net.sf</groupId>
@@ -1055,12 +1060,13 @@
 					</reportPlugins>
 				</configuration>
 			</plugin>
-
+			
+			<!--
 			<plugin>
 				<groupId>de.smartics.maven.plugin</groupId>
 				<artifactId>maven-buildmetadata-plugin</artifactId>
 			</plugin>
-			
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
