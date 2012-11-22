@@ -345,6 +345,12 @@
 					</configuration>
 				</plugin>
 				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>2.0</version>
+				</plugin>
+				
 				<!-- Tools -->
 				
 				<plugin>
@@ -427,6 +433,12 @@
 					</executions>
 				</plugin>
 				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+				
 				<!-- Non Maven Core -->
 				
 				<plugin>
@@ -447,12 +459,12 @@
 						<dependency>
 							<groupId>com.sun.xml.bind</groupId>
 							<artifactId>jaxb-xjc</artifactId>
-							<version>2.2.5</version>
+							<version>2.2.6</version>
 						</dependency>
 						<dependency>
 							<groupId>com.sun.xml.bind</groupId>
 							<artifactId>jaxb-impl</artifactId>
-							<version>2.2.5</version>
+							<version>2.2.6</version>
 						</dependency>
 						<dependency>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
@@ -584,15 +596,15 @@
 				
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sql-maven-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
+				
+				<!-- http://mojo.codehaus.org/cobertura-maven-plugin -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.5.1</version>
-					<dependencies>
-						<dependency>
-							<groupId>net.sourceforge.cobertura</groupId>
-							<artifactId>cobertura</artifactId>
-							<version>1.9.4.1</version>
-						</dependency>
-					</dependencies>
+					<version>2.5.2</version>
 				</plugin>
 
 				<!-- http://mojo.codehaus.org/versions-maven-plugin/ -->
@@ -613,7 +625,7 @@
 				<plugin>
 					<groupId>de.smartics.maven.plugin</groupId>
 					<artifactId>maven-buildmetadata-plugin</artifactId>
-					<version>1.1.5</version>
+					<version>1.1.7</version>
 					<executions>
 						<execution>
 							<id>provide-metadata</id>
@@ -635,7 +647,7 @@
 				<plugin>
 					<groupId>com.mysema.maven</groupId>
 					<artifactId>maven-apt-plugin</artifactId>
-					<version>1.0.4</version>
+					<version>1.0.6</version>
 					<configuration>
 						<outputDirectory>target/generated-sources/querydsl</outputDirectory>
 						<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
@@ -663,7 +675,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>appassembler-maven-plugin</artifactId>
-					<version>1.2.2</version>
+					<version>1.3</version>
 				</plugin>
 				
 				<!-- http://evgeny-goldin.com/wiki/Maven-plugins -->
@@ -791,7 +803,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.4.0</version>
+					<version>2.5.2</version>
 					<configuration>
 						<effort>Max</effort>
 						<threshold>Low</threshold>
@@ -831,7 +843,108 @@
 										<ignore />
 									</action>
 								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>de.smartics.maven.plugin</groupId>
+										<artifactId>maven-buildmetadata-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>provide-buildmetadata</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Fails under m2e 1.0.1 -->
+									</action>
+								</pluginExecution>
 
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>aspectj-maven-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>test-compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Eclipse AJDT weaves -->
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>add-source</goal>
+											<goal>add-test-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Skip in Eclipse -->
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.mysema.maven</groupId>
+										<artifactId>maven-apt-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>process</goal>
+											<goal>test-process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Fails under m2e 1.0.1 -->
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-ear-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>defualt-generate-application-xml</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- m2e-wtp does it -->
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.mortbay.jetty</groupId>
+										<artifactId>jetty-jspc-maven-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>jspc</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Skip in Eclipse -->
+									</action>
+								</pluginExecution>
+								
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo.jspc</groupId>
+										<artifactId>jspc-maven-plugin</artifactId>
+										<versionRange>[0.0.1,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /> <!-- Skip in Eclipse -->
+									</action>
+								</pluginExecution>
+								
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.jvnet.jax-ws-commons</groupId>
@@ -885,107 +998,6 @@
 									</pluginExecutionFilter>
 									<action>
 										<ignore /> <!-- better run manualy -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>aspectj-maven-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>compile</goal>
-											<goal>test-compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Eclipse AJDT weaves -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-ear-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>defualt-generate-application-xml</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- m2e-wtp does it -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.mortbay.jetty</groupId>
-										<artifactId>jetty-jspc-maven-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>jspc</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Skip in Eclipse -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo.jspc</groupId>
-										<artifactId>jspc-maven-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Skip in Eclipse -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>build-helper-maven-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>add-source</goal>
-											<goal>add-test-source</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Skip in Eclipse -->
-									</action>
-								</pluginExecution>
-								
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.mysema.maven</groupId>
-										<artifactId>maven-apt-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>process</goal>
-											<goal>test-process</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Fails under m2e 1.0.1 -->
-									</action>
-								</pluginExecution>
-
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>de.smartics.maven.plugin</groupId>
-										<artifactId>maven-buildmetadata-plugin</artifactId>
-										<versionRange>[0.0.1,)</versionRange>
-										<goals>
-											<goal>provide-buildmetadata</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore /> <!-- Fails under m2e 1.0.1 -->
 									</action>
 								</pluginExecution>
 								
