@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.java.target>1.6</project.build.java.target>
-		<aspectj.version>1.6.12</aspectj.version>
+		<aspectj.version>1.7.1</aspectj.version>
 		
 		<github.repo.name>${project.name}</github.repo.name>
 		<sites.context.name>${project.name}</sites.context.name>
