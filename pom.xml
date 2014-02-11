@@ -173,7 +173,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-verifier-plugin</artifactId>
-					<version>1.0</version>
+					<version>1.4</version>
 				</plugin>
 				
 				<!-- Packaging types / tools -->
